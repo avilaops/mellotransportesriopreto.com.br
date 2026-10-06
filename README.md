@@ -103,22 +103,26 @@ Blocos aceitos no `body`: `p`, `h2`, `h3`, `ul`, `ol`, `note` e `table`. Dentro 
 
 ## Deploy
 
-**Ainda não configurado neste repositório.** Até 06/10/2026 o site e o sistema saíam juntos, de um container só, pelo workflow do `avilaops/TMS` (aplicação `mellotransportesriopreto.com.br` no `avilaops/infra`).
+O site roda no servidor `applications`, em `/opt/mellotransportesriopreto-com-br`, atrás do Caddy, e segue a Norma de Plataforma da Ávila Ops (`avilaops/infra`, `NORMA-PLATAFORMA.md`): todo nome sai do domínio e nenhuma porta é publicada no host.
 
-Para o site passar a sair daqui, falta:
+| Recurso | Nome |
+| --- | --- |
+| Diretório | `/opt/mellotransportesriopreto-com-br` |
+| Projeto compose | `mellotransportesriopreto-com-br` |
+| Container | `mellotransportesriopreto-com-br-web` (rede `edge`, `172.31.0.12:3000`) |
+| Imagem | `ghcr.io/avilaops/mellotransportesriopreto.com.br`, por digest |
 
-1. Colocar o TMS no ar em https://tms.avilaops.com (o endereço já é o padrão do build).
-2. Criar a aplicação do site no `avilaops/infra` e apontar o Caddy do domínio para ela.
-3. Acrescentar os jobs de imagem e deploy ao workflow e ligar `DEPLOY_ENABLED`.
+[.github/workflows/deploy-production.yml](.github/workflows/deploy-production.yml):
 
-O [Dockerfile](Dockerfile) já gera a imagem:
+- Todo push e PR em `main` roda o typecheck e constrói a imagem Docker, o que inclui o build do site. Fora de PR, a imagem é publicada no GHCR.
+- O deploy por SSH só roda na `main`, com a variável `DEPLOY_ENABLED` do repositório em `true` e os segredos `DEPLOY_HOST`, `DEPLOY_USER`, `DEPLOY_SSH_KEY` e `DEPLOY_KNOWN_HOSTS`. A chave só tem permissão para publicar a aplicação `mellotransportesriopreto.com.br`.
+- No servidor, o deploy baixa a imagem pelo digest, troca o container e confere a home; se a versão nova não responder, volta para a anterior.
 
-```bash
-docker build --platform linux/amd64 -t mello-site:latest .
-```
+O site não tem banco nem `.env` em produção. O endereço do TMS (`https://tms.avilaops.com`) é gravado na imagem durante o build; trocar o endereço exige gerar a imagem de novo.
 
 - **DNS:** o domínio do cliente fica na Redehost, com e-mail (MX/SPF) intocado.
 - **SEO:** as URLs do site antigo (`/empresa`, `/servicos`, `/faca-um-orcamento` etc.) redirecionam com 301 em [next.config.ts](next.config.ts). `www` redireciona para o apex no Caddy.
+- **Voltar versão:** republicar o commit anterior pela `main`. Não há cópia de código nem de build guardada no servidor.
 
 ---
 

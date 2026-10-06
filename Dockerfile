@@ -1,5 +1,5 @@
 # Site da Mello Transportes: Next 16 (standalone), sem banco.
-# Build: docker build --platform linux/amd64 -t mello-site:latest .
+# A imagem de producao e construida e publicada no GHCR pelo GitHub Actions.
 FROM node:22-alpine AS base
 RUN apk add --no-cache libc6-compat
 
