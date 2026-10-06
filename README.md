@@ -3,7 +3,7 @@
 Site institucional da **Mello Transportes Rio Preto**, transportadora de cargas fracionadas com sede em São José do Rio Preto/SP e atendimento em mais de 130 cidades da região.
 
 - Site: https://mellotransportesriopreto.com.br
-- Sistema de gestão (painel, motorista, portal do cliente): repositório [avilaops/TMS](https://github.com/avilaops/TMS)
+- Sistema de gestão (painel, motorista, portal do cliente): https://tms.avilaops.com, repositório [avilaops/TMS](https://github.com/avilaops/TMS)
 
 Este repositório nasceu em 06/10/2026 da separação do `avilaops/TMS` (antigo `Mello`), a partir do commit `3412b08`. O histórico anterior do site está lá.
 
@@ -29,7 +29,7 @@ O navegador chama três rotas neste mesmo domínio, e o servidor do site repassa
 | `POST /api/leads` | Cotação rápida e central de coleta da home | Registra o lead no CRM |
 | `GET /api/rastreio` | `/rastreio` | Consulta a carga |
 
-O endereço do TMS vem de `TMS_API_URL` e é lido **no build**. Sem a variável, o site abre normalmente, mas esses três envios respondem 404; o WhatsApp continua funcionando, porque não depende da API.
+O endereço do TMS vem de `TMS_API_URL` e é lido **no build**. Em produção é `https://tms.avilaops.com`, que já é o padrão do [Dockerfile](Dockerfile). Sem a variável, o site abre normalmente, mas esses três envios respondem 404; o WhatsApp continua funcionando, porque não depende da API.
 
 Nenhuma outra rota é repassada. O `x-forwarded-for` do visitante segue junto, e é ele que o TMS usa no limite de tentativas do rastreio: o proxy na frente do site (Caddy, Cloudflare) precisa continuar enviando esse cabeçalho.
 
@@ -107,14 +107,14 @@ Blocos aceitos no `body`: `p`, `h2`, `h3`, `ul`, `ol`, `note` e `table`. Dentro 
 
 Para o site passar a sair daqui, falta:
 
-1. Definir o endereço público do TMS e preencher `TMS_API_URL` no build.
+1. Colocar o TMS no ar em https://tms.avilaops.com (o endereço já é o padrão do build).
 2. Criar a aplicação do site no `avilaops/infra` e apontar o Caddy do domínio para ela.
 3. Acrescentar os jobs de imagem e deploy ao workflow e ligar `DEPLOY_ENABLED`.
 
 O [Dockerfile](Dockerfile) já gera a imagem:
 
 ```bash
-docker build --platform linux/amd64 --build-arg TMS_API_URL=https://<endereco-do-tms> -t mello-site:latest .
+docker build --platform linux/amd64 -t mello-site:latest .
 ```
 
 - **DNS:** o domínio do cliente fica na Redehost, com e-mail (MX/SPF) intocado.

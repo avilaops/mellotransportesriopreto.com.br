@@ -12,7 +12,7 @@ FROM base AS builder
 WORKDIR /app
 ENV NEXT_TELEMETRY_DISABLED=1
 # As rotas /api/* sao reescritas para o TMS no build: o endereco entra aqui.
-ARG TMS_API_URL
+ARG TMS_API_URL=https://tms.avilaops.com
 ENV TMS_API_URL=${TMS_API_URL}
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
