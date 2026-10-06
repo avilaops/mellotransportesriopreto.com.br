@@ -1,0 +1,23 @@
+# dependencias
+node_modules/
+
+# build
+.next/
+out/
+*.tsbuildinfo
+
+# ambiente
+.env
+.env.*
+!.env.example
+
+# ferramentas de agente instaladas localmente
+.agents/
+.windsurf/
+.playwright-cli/
+
+# scratch e artefatos locais
+output/
+tmp/
+*.log
+.DS_Store
