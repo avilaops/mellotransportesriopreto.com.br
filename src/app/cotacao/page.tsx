@@ -3,17 +3,37 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { pushDataLayer } from "@/lib/analytics";
+import { whatsappUrl } from "@/lib/whatsapp";
+
+/** Mensagem pronta com o que a pessoa já digitou, para ela não preencher duas vezes. */
+function quoteWhatsappUrl(data: Record<string, FormDataEntryValue>) {
+  const linhas = [
+    "Olá! Gostaria de uma cotação de frete.",
+    `Empresa: ${data.companyName ?? ""}`,
+    `E-mail: ${data.email ?? ""}`,
+    data.phone ? `Telefone: ${data.phone}` : "",
+    `Origem: ${data.origin ?? ""}`,
+    `Destino: ${data.destination ?? ""}`,
+    `Volumes: ${data.volumes ?? ""}`,
+    `Peso estimado: ${data.weight ?? ""} kg`,
+  ].filter(Boolean);
+  return whatsappUrl(linhas.join("\n"));
+}
 
 export default function QuotePage() {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  // Preenchido quando o sistema não registrou o pedido: a cotação segue pelo
+  // WhatsApp em vez de o cliente ficar com uma mensagem de erro e ir embora.
+  const [fallbackUrl, setFallbackUrl] = useState<string | null>(null);
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setLoading(true);
     setError(null);
+    setFallbackUrl(null);
 
     const formData = new FormData(e.currentTarget);
     const data = Object.fromEntries(formData);
@@ -26,8 +46,13 @@ export default function QuotePage() {
       });
 
       if (!res.ok) {
-        const result = await res.json();
-        throw new Error(result.error || "Erro ao enviar solicitação.");
+        // 4xx é dado que a pessoa pode corrigir; 5xx é falha do nosso lado.
+        if (res.status >= 500) {
+          setFallbackUrl(quoteWhatsappUrl(data));
+          return;
+        }
+        const result = await res.json().catch(() => null);
+        throw new Error(result?.error || "Erro ao enviar solicitação.");
       }
 
       // Depois do `res.ok`, não no envio: a cotação que a API recusou não
@@ -45,7 +70,9 @@ export default function QuotePage() {
 
       setSuccess(true);
     } catch (err: unknown) {
-      setError(err instanceof Error ? err.message : "Erro ao enviar solicitação.");
+      // TypeError é o que o fetch lança quando não há resposta (rede, servidor fora).
+      if (err instanceof TypeError) setFallbackUrl(quoteWhatsappUrl(data));
+      else setError(err instanceof Error ? err.message : "Erro ao enviar solicitação.");
     } finally {
       setLoading(false);
     }
@@ -84,6 +111,16 @@ export default function QuotePage() {
         </div>
 
         <form onSubmit={handleSubmit} className="p-8 space-y-6">
+          {fallbackUrl && (
+            <div role="alert" className="bg-amber-50 border border-amber-200 text-amber-900 px-4 py-4 rounded-xl text-sm">
+              <p className="font-semibold mb-1">Não conseguimos registrar sua cotação agora.</p>
+              <p className="mb-3">Seus dados não foram perdidos: envie o mesmo pedido pelo WhatsApp e a equipe responde por lá.</p>
+              <a href={fallbackUrl} target="_blank" rel="noopener noreferrer" className="inline-block bg-[#f28a00] text-gray-950 font-bold px-5 py-3 rounded-xl hover:bg-orange-700 transition">
+                Enviar cotação pelo WhatsApp
+              </a>
+            </div>
+          )}
+
           {error && (
             <div className="bg-red-50 border border-red-200 text-red-600 px-4 py-3 rounded-xl text-sm font-medium">
               {error}
