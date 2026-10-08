@@ -12,7 +12,7 @@ concurrency:
   cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 jobs:
   # O site nao tem banco nem teste automatizado: o que protege a main e o
-  # typecheck aqui e o build dentro da imagem, que tambem pre-renderiza todas
+  # typecheck e o lint aqui e o build dentro da imagem, que tambem pre-renderiza todas
   # as materias do blog.
   checks:
     runs-on: ubuntu-latest
@@ -25,6 +25,7 @@ jobs:
           cache: npm
       - run: npm ci
       - run: npm run typecheck
+      - run: npm run lint
 
   # Construcao e implantacao moram aqui, e nao em `uses: avilaops/infra/...`:
   # este repositorio e publico e o avilaops/infra e privado, e o GitHub nao

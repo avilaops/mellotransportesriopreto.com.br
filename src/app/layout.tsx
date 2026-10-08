@@ -18,9 +18,8 @@ const SITE_URL = "https://mellotransportesriopreto.com.br";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
-  // O dominio ja tem historico de busca local ("entrega rapida", "motoboy",
-  // "transportadora em Rio Preto"). O titulo publico precisa carregar isso; as
-  // areas internas herdam o template.
+  // O titulo publico leva o que a Mello faz hoje e onde: coletas e entregas
+  // em Sao Jose do Rio Preto. As demais paginas herdam o template.
   title: {
     default:
       "Mello Transportes | Coletas e entregas em São José do Rio Preto",
