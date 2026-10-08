@@ -54,10 +54,10 @@ export default function RastreioPage() {
 
 
   return (
-    <div className="min-h-screen bg-gray-50 flex flex-col items-center pt-16 px-4">
+    <div className="min-h-[65vh] bg-gray-50 flex flex-col items-center pt-16 px-4">
       <div className="w-full max-w-2xl text-center mb-10">
-        <div className="w-16 h-16 bg-blue-600 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-xl shadow-blue-600/20">
-          <Truck className="w-8 h-8 text-white" />
+        <div className="w-16 h-16 bg-[#f28a00] rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-xl shadow-orange-600/20">
+          <Truck className="w-8 h-8 text-gray-950" />
         </div>
         <h1 className="text-3xl font-bold font-outfit text-gray-900 mb-3">Rastreamento de Cargas</h1>
         <p className="text-gray-500">Informe o CNPJ ou CPF do contratante e o código de rastreio da carga.</p>
@@ -80,7 +80,7 @@ export default function RastreioPage() {
                 value={doc}
                 onChange={(e) => setDoc(somenteDigitos(e.target.value))}
                 placeholder="Somente números"
-                className="w-full px-5 py-4 rounded-xl border border-gray-200 bg-gray-50 focus:bg-white focus:ring-2 focus:ring-blue-500 outline-none text-gray-900"
+                className="w-full px-5 py-4 rounded-xl border border-gray-200 bg-gray-50 focus:bg-white focus:ring-2 focus:ring-orange-500 outline-none text-gray-900"
               />
             </div>
             <div className="flex-1">
@@ -96,7 +96,7 @@ export default function RastreioPage() {
                 onChange={(e) => setCodigo(takeTrackingCodeDigits(e.target.value))}
                 placeholder="10 números"
                 aria-describedby="rastreio-ajuda"
-                className="w-full px-5 py-4 rounded-xl border border-gray-200 bg-gray-50 focus:bg-white focus:ring-2 focus:ring-blue-500 outline-none text-gray-900 font-mono tracking-wider"
+                className="w-full px-5 py-4 rounded-xl border border-gray-200 bg-gray-50 focus:bg-white focus:ring-2 focus:ring-orange-500 outline-none text-gray-900 font-mono tracking-wider"
               />
             </div>
           </div>
@@ -107,7 +107,7 @@ export default function RastreioPage() {
           <button
             type="submit"
             disabled={isSearching || !doc || !codigo}
-            className="w-full sm:w-auto sm:self-end bg-blue-600 hover:bg-blue-700 disabled:bg-blue-400 text-white px-8 py-4 rounded-xl font-medium shadow-lg shadow-blue-500/30 transition-all flex items-center justify-center"
+            className="w-full sm:w-auto sm:self-end bg-[#f28a00] hover:bg-orange-700 disabled:bg-orange-400 text-gray-950 px-8 py-4 rounded-xl font-medium shadow-lg shadow-orange-500/30 transition-all flex items-center justify-center"
           >
             {isSearching ? <Loader2 className="w-5 h-5 animate-spin" /> : <><Search className="w-5 h-5 mr-2" /> Buscar</>}
           </button>
@@ -143,7 +143,7 @@ export default function RastreioPage() {
                 {/* Linha Lateral Status */}
                 <div className={`absolute left-0 top-0 w-1.5 h-full ${
                   minuta.status === 'DELIVERED' ? 'bg-green-500' :
-                  minuta.status === 'ROUTE' ? 'bg-blue-500' : 'bg-yellow-500'
+                  minuta.status === 'ROUTE' ? 'bg-orange-500' : 'bg-yellow-500'
                 }`} />
 
                 <div className="flex justify-between items-start mb-6">
@@ -155,7 +155,7 @@ export default function RastreioPage() {
                   </div>
                   <span className={`px-3 py-1 text-xs font-bold rounded-full ${
                     minuta.status === 'DELIVERED' ? 'bg-green-100 text-green-700' :
-                    minuta.status === 'ROUTE' ? 'bg-blue-100 text-blue-700' : 'bg-yellow-100 text-yellow-700'
+                    minuta.status === 'ROUTE' ? 'bg-orange-100 text-orange-700' : 'bg-yellow-100 text-yellow-700'
                   }`}>
                     {minuta.status === 'DELIVERED' ? 'ENTREGUE' :
                      minuta.status === 'ROUTE' ? 'EM ROTA' : 'AGUARDANDO EMBARQUE'}
@@ -174,7 +174,7 @@ export default function RastreioPage() {
                   <div className="flex-1 text-right">
                     <p className="text-xs text-gray-500 mb-1">Destino</p>
                     <p className="font-medium text-gray-900 text-sm flex items-center justify-end">
-                      <MapPin className="w-4 h-4 mr-1 text-blue-500" />
+                      <MapPin className="w-4 h-4 mr-1 text-orange-500" />
                       {minuta.destination}
                     </p>
                   </div>
@@ -186,7 +186,7 @@ export default function RastreioPage() {
 
                   {/* Step 1: Mercadoria Recebida */}
                   <div className="flex items-start space-x-4">
-                    <div className="w-6 h-6 rounded-full bg-blue-100 border-2 border-white flex items-center justify-center flex-shrink-0 z-10 mt-0.5 shadow-sm text-blue-600">
+                    <div className="w-6 h-6 rounded-full bg-orange-100 border-2 border-white flex items-center justify-center flex-shrink-0 z-10 mt-0.5 shadow-sm text-orange-600">
                       <CheckCircle2 className="w-4 h-4" />
                     </div>
                     <div>
@@ -198,7 +198,7 @@ export default function RastreioPage() {
                   {/* Step 2: Em Viagem */}
                   <div className="flex items-start space-x-4">
                     <div className={`w-6 h-6 rounded-full border-2 border-white flex items-center justify-center flex-shrink-0 z-10 mt-0.5 shadow-sm ${
-                      ['ROUTE', 'DELIVERED'].includes(minuta.status) ? 'bg-blue-100 text-blue-600' : 'bg-gray-100 text-gray-300'
+                      ['ROUTE', 'DELIVERED'].includes(minuta.status) ? 'bg-orange-100 text-orange-600' : 'bg-gray-100 text-gray-300'
                     }`}>
                       <Truck className="w-3.5 h-3.5" />
                     </div>
