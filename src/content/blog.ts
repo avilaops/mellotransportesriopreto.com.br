@@ -256,7 +256,7 @@ export const posts: Post[] = [
   {
     slug: "escolher-veiculo-certo-para-a-carga",
     coverImage: "/blog-capas/strada-capota.webp",
-    coverImageAlt: "Ilustração de Fiat Strada com capota alta e marca Mello",
+    coverImageAlt: "Ilustração de veículo da frota leve com capota alta e marca Mello",
     title: "Utilitário, van ou VUC: qual veículo a sua carga pede",
     description:
       "As diferenças práticas entre os veículos usados nas rotas regionais e como o tipo de carga e o local de entrega definem a escolha.",
@@ -271,7 +271,7 @@ export const posts: Post[] = [
         text: "Toda coleta passa por uma decisão que o cliente raramente vê: qual veículo atende aquela carga naquele endereço. A escolha muda o custo, muda o prazo e às vezes muda a viabilidade da entrega.",
       },
       { type: "h2", text: "Os três perfis de veículo das rotas" },
-      { type: "h3", text: "Fiat Strada com capota" },
+      { type: "h3", text: "Frota Leve" },
       {
         type: "p",
         text: "É o veículo das coletas ágeis e dos volumes pequenos. Entra bem em rua estreita, centro comercial e endereço sem doca, e é o que costuma resolver documentos, amostras, peças e pedidos fracionados de pouco volume.",
@@ -281,7 +281,7 @@ export const posts: Post[] = [
         type: "p",
         text: "Furgão de capacidade média, com carga fechada e protegida da chuva. É o meio termo da distribuição regional: leva bem mais que o utilitário, mantém a agilidade urbana e serve para lotes de caixas, embalagens e mercadoria que não pode pegar tempo.",
       },
-      { type: "h3", text: "Caminhão VUC de até 3,7 m" },
+      { type: "h3", text: "Caminhão 3/4 (VUC)" },
       {
         type: "p",
         text: "O veículo urbano de carga foi desenhado justamente para circular onde caminhão grande não entra. É a escolha para palete, carga volumosa e lote maior, mantendo acesso a áreas com restrição de circulação.",
@@ -291,9 +291,9 @@ export const posts: Post[] = [
         type: "table",
         head: ["Se a sua carga", "O caminho costuma ser"],
         rows: [
-          ["Cabe em poucas caixas e precisa sair rápido", "Utilitário leve"],
+          ["Cabe em poucas caixas e precisa sair rápido", "Frota Leve"],
           ["Tem várias caixas e não pode molhar", "Van de carga"],
-          ["Está paletizada ou é volumosa", "Caminhão VUC"],
+          ["Está paletizada ou é volumosa", "Caminhão 3/4 (VUC)"],
           ["Vai para local com restrição de acesso", "Confirmar com a equipe antes"],
         ],
       },

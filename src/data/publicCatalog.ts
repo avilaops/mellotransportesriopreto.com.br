@@ -36,9 +36,9 @@ export const publicServices = [
 ];
 
 export const publicFleet = [
-  { slug: "fiat-strada", title: "Strada com capota", summary: "Coletas leves em compartimento fechado.", image: "/images/strada-mello.webp", description: "Um utilitário compacto com capota alta fechada para coletas e entregas de volumes menores. A equipe confirma a compatibilidade da carga e a disponibilidade na rota.", uses: ["Peças e pedidos de pequeno volume", "Coletas com acesso urbano", "Envios fracionados compatíveis com o veículo"] },
+  { slug: "frota-leve", title: "Frota Leve", summary: "Coletas leves em compartimento fechado.", image: "/images/strada-mello.webp", description: "Um utilitário compacto com capota alta fechada para coletas e entregas de volumes menores. A equipe confirma a compatibilidade da carga e a disponibilidade na rota.", uses: ["Peças e pedidos de pequeno volume", "Coletas com acesso urbano", "Envios fracionados compatíveis com o veículo"] },
   { slug: "van-de-carga", title: "Van de carga", summary: "Mais espaço para seus volumes.", image: "/images/van-mello.webp", description: "O compartimento fechado da van acomoda caixas e volumes para distribuição regional. Informe as dimensões para a equipe avaliar o espaço necessário.", uses: ["Lotes de caixas e embalagens", "Mercadorias em compartimento fechado", "Coletas e distribuição regional"] },
-  { slug: "vuc-bau", title: "VUC de baú", summary: "Para cargas de maior volume.", image: "/images/vuc-mello.webp", description: "O veículo urbano de carga com baú atende envios de maior volume, conforme avaliação da equipe. Confirme as dimensões da mercadoria e as condições de carga e descarga.", uses: ["Lotes de maior volume", "Mercadorias com necessidade de baú", "Entregas com acesso e descarga previamente confirmados"] },
+  { slug: "caminhao-3-4-vuc", title: "Caminhão 3/4 (VUC)", summary: "Para cargas de maior volume.", image: "/images/vuc-mello.webp", description: "O caminhão 3/4 (VUC) com baú atende envios de maior volume, conforme avaliação da equipe. Confirme as dimensões da mercadoria e as condições de carga e descarga.", uses: ["Lotes de maior volume", "Mercadorias com necessidade de baú", "Entregas com acesso e descarga previamente confirmados"] },
 ];
 
 export const publicHubs = hubs.map((name) => ({
