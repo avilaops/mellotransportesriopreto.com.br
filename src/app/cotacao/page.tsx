@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { pushDataLayer } from "@/lib/analytics";
 import { whatsappUrl } from "@/lib/whatsapp";
+import { CITY_OPTIONS_ID, CityOptions } from "@/components/site/CityField";
 
 /** Mensagem pronta com o que a pessoa já digitou, para ela não preencher duas vezes. */
 function quoteWhatsappUrl(data: Record<string, FormDataEntryValue>) {
@@ -111,6 +112,7 @@ export default function QuotePage() {
         </div>
 
         <form onSubmit={handleSubmit} className="p-8 space-y-6">
+          <CityOptions />
           {fallbackUrl && (
             <div role="alert" className="bg-amber-50 border border-amber-200 text-amber-900 px-4 py-4 rounded-xl text-sm">
               <p className="font-semibold mb-1">Não conseguimos registrar sua cotação agora.</p>
@@ -160,7 +162,7 @@ export default function QuotePage() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
               <label htmlFor="origin" className="block text-sm font-semibold text-gray-700 mb-2">Cidade de origem</label>
-              <input id="origin" type="text" name="origin"
+              <input id="origin" type="text" name="origin" list={CITY_OPTIONS_ID} autoComplete="off"
                 required
                 className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-orange-500 focus:border-transparent outline-none transition"
                 placeholder="Ex: São José do Rio Preto"
@@ -169,7 +171,7 @@ export default function QuotePage() {
 
             <div>
               <label htmlFor="destination" className="block text-sm font-semibold text-gray-700 mb-2">Cidade de destino</label>
-              <input id="destination" type="text" name="destination"
+              <input id="destination" type="text" name="destination" list={CITY_OPTIONS_ID} autoComplete="off"
                 required
                 className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-orange-500 focus:border-transparent outline-none transition"
                 placeholder="Ex: Araçatuba"

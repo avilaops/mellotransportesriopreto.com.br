@@ -50,7 +50,7 @@ export const posts: Post[] = [
   {
     slug: "peso-cubado-como-calcular",
     coverImage: "/blog-capas/preparo-carga.webp",
-    coverImageAlt: "Ilustração de medição de uma caixa para cálculo do peso cubado",
+    coverImageAlt: "Medição de uma caixa para cálculo do peso cubado",
     title: "Peso cubado: por que uma carga leve pode custar como uma pesada",
     description:
       "Entenda como o volume da mercadoria entra no cálculo do frete, como chegar ao peso cubado e o que fazer para não pagar por espaço vazio.",
@@ -131,7 +131,7 @@ export const posts: Post[] = [
   {
     slug: "prazo-24h-48h-como-funciona",
     coverImage: "/blog-capas/conferencia-entrega.webp",
-    coverImageAlt: "Ilustração de conferência da carga antes da entrega",
+    coverImageAlt: "Conferência da carga antes da entrega",
     title: "Até 24h ou até 48h: o que decide o prazo da sua entrega",
     description:
       "Como os polos regionais organizam as rotas da Mello Transportes e por que duas cidades vizinhas podem ter prazos diferentes.",
@@ -187,7 +187,7 @@ export const posts: Post[] = [
   {
     slug: "checklist-antes-de-solicitar-coleta",
     coverImage: "/blog-capas/preparo-carga.webp",
-    coverImageAlt: "Ilustração de preparação e medição de volumes para coleta",
+    coverImageAlt: "Preparação e medição de volumes para coleta",
     title: "O que ter em mãos antes de solicitar uma coleta",
     description:
       "Um checklist curto com as informações que fazem a coleta sair no mesmo dia, sem idas e vindas no WhatsApp.",
@@ -256,7 +256,7 @@ export const posts: Post[] = [
   {
     slug: "escolher-veiculo-certo-para-a-carga",
     coverImage: "/blog-capas/strada-capota.webp",
-    coverImageAlt: "Ilustração de veículo da frota leve com capota alta e marca Mello",
+    coverImageAlt: "Veículo da frota leve com capota alta e marca Mello",
     title: "Utilitário, van ou VUC: qual veículo a sua carga pede",
     description:
       "As diferenças práticas entre os veículos usados nas rotas regionais e como o tipo de carga e o local de entrega definem a escolha.",
@@ -321,7 +321,7 @@ export const posts: Post[] = [
   {
     slug: "documentos-no-transporte-de-carga",
     coverImage: "/blog-capas/conferencia-entrega.webp",
-    coverImageAlt: "Ilustração de conferência de documentos junto a uma van",
+    coverImageAlt: "Conferência de documentos junto a uma van",
     title: "Nota fiscal, CT-e e comprovante: o papel de cada documento",
     description:
       "O que cada documento do transporte representa, quem emite, e por que o comprovante de entrega é o que fecha a operação.",

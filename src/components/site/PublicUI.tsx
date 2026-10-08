@@ -14,7 +14,7 @@ export function PageIntro({ label, title, description }: { label: string; title:
 export function ShortCard({ href, title, subtitle, image }: { href: string; title: string; subtitle?: string; image?: string }) {
   const Icon = href.includes('/cidades/') ? MapPin : href.includes('coletas-comerciais') ? PackageCheck : href.includes('entregas-regionais') ? Truck : href.includes('distribuicao-por-polos') ? Route : Boxes;
   return <Link className={`ui-short-card${image ? " with-image" : ""}`} href={href}>
-    {image && <Image src={image} alt={`Ilustração de ${title} com a marca Mello`} width={240} height={160} sizes="(max-width: 600px) 112px, 180px" />}
+    {image && <Image src={image} alt={`${title} com a marca Mello`} width={240} height={160} sizes="(max-width: 600px) 112px, 180px" />}
     {!image && <span className="ui-card-icon"><Icon size={22} strokeWidth={1.7} aria-hidden="true" /></span>}
     <span className="ui-card-copy"><strong>{title}</strong>{subtitle && <small>{subtitle}</small>}</span><span className="ui-card-arrow"><ChevronRight size={18} aria-hidden="true" /></span>
   </Link>;
@@ -25,5 +25,5 @@ export function ContactCTA({ title = "Vamos organizar sua próxima entrega?", me
 }
 
 export function VehiclePhoto({ src, title, priority = false }: { src: string; title: string; priority?: boolean }) {
-  return <figure className="ui-vehicle-photo"><Image src={src} alt={`Ilustração de ${title} com a logo da Mello Transportes`} width={1536} height={1024} sizes="(max-width: 760px) 100vw, 60vw" fetchPriority={priority ? "high" : undefined} loading={priority ? "eager" : undefined} /><figcaption>Imagem ilustrativa da aplicação da marca.</figcaption></figure>;
+  return <figure className="ui-vehicle-photo"><Image src={src} alt={`${title} com a logo da Mello Transportes`} width={1536} height={1024} sizes="(max-width: 760px) 100vw, 60vw" fetchPriority={priority ? "high" : undefined} loading={priority ? "eager" : undefined} /></figure>;
 }
