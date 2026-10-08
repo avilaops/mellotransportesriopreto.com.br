@@ -148,7 +148,7 @@ export default function QuotePage() {
 
             <div>
               <label htmlFor="phone" className="block text-sm font-semibold text-gray-700 mb-2">Telefone / WhatsApp</label>
-              <input id="phone" type="text" name="phone"
+              <input id="phone" type="tel" inputMode="tel" autoComplete="tel" name="phone"
                 className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-orange-500 focus:border-transparent outline-none transition"
                 placeholder="(00) 00000-0000"
               />
@@ -163,7 +163,7 @@ export default function QuotePage() {
               <input id="origin" type="text" name="origin"
                 required
                 className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-orange-500 focus:border-transparent outline-none transition"
-                placeholder="Ex: São Paulo, SP"
+                placeholder="Ex: São José do Rio Preto"
               />
             </div>
 
@@ -172,7 +172,7 @@ export default function QuotePage() {
               <input id="destination" type="text" name="destination"
                 required
                 className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-orange-500 focus:border-transparent outline-none transition"
-                placeholder="Ex: Rio de Janeiro, RJ"
+                placeholder="Ex: Araçatuba"
               />
             </div>
 

@@ -25,5 +25,5 @@ export function ContactCTA({ title = "Vamos organizar sua próxima entrega?", me
 }
 
 export function VehiclePhoto({ src, title, priority = false }: { src: string; title: string; priority?: boolean }) {
-  return <figure className="ui-vehicle-photo"><Image src={src} alt={`Ilustração de ${title} com a logo da Mello Transportes`} width={1536} height={1024} sizes="(max-width: 760px) 100vw, 60vw" priority={priority} /><figcaption>Imagem ilustrativa da aplicação da marca.</figcaption></figure>;
+  return <figure className="ui-vehicle-photo"><Image src={src} alt={`Ilustração de ${title} com a logo da Mello Transportes`} width={1536} height={1024} sizes="(max-width: 760px) 100vw, 60vw" fetchPriority={priority ? "high" : undefined} loading={priority ? "eager" : undefined} /><figcaption>Imagem ilustrativa da aplicação da marca.</figcaption></figure>;
 }
