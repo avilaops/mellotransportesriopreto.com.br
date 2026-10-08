@@ -11,6 +11,11 @@ import Script from "next/script";
  * ele se perde em migração de pasta ou build feito em outra máquina, e o site
  * fica sem medição sem ninguém notar. `NEXT_PUBLIC_GTM_ID` continua
  * sobrepondo, para builds de staging.
+ *
+ * `lazyOnload`: o GTM e o GA4 somam cerca de 280 KB e quase 1 s de
+ * processamento no celular. Carregando depois que a página termina, o
+ * visitante vê e usa o site antes; a medição continua, só começa um pouco
+ * mais tarde. Quem sai em menos de dois ou três segundos pode não ser contado.
  */
 const GTM_ID = process.env.NEXT_PUBLIC_GTM_ID ?? "GTM-TWJR2PM5";
 
@@ -18,7 +23,7 @@ export function GoogleTagManagerScript() {
   if (!GTM_ID) return null;
 
   return (
-    <Script id="gtm" strategy="afterInteractive">
+    <Script id="gtm" strategy="lazyOnload">
       {`(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
 new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
 j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=

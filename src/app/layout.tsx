@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Inter, Outfit, Geist } from "next/font/google";
+import { Inter } from "next/font/google";
 import "./globals.css";
 import AnalyticsClickTracker from "@/components/analytics/AnalyticsClickTracker";
 import {
@@ -8,10 +8,11 @@ import {
 } from "@/components/analytics/google-tag-manager";
 import { cn } from "@/lib/utils";
 
-const geist = Geist({subsets:['latin'],variable:'--font-sans'});
-
+// Uma família só. Geist e Outfit eram baixadas em toda página (cerca de 60 KB)
+// para aparecer em dois títulos; as duas variáveis apontam para os mesmos
+// arquivos da Inter.
+const sans = Inter({ subsets: ["latin"], variable: "--font-sans" });
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
-const outfit = Outfit({ subsets: ["latin"], variable: "--font-outfit" });
 
 const SITE_URL = "https://mellotransportesriopreto.com.br";
 
@@ -83,11 +84,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="pt-BR" className={cn("font-sans", geist.variable)}>
+    <html lang="pt-BR" className={cn("font-sans", sans.variable)}>
       <head>
         <GoogleTagManagerScript />
       </head>
-      <body className={`${inter.variable} ${outfit.variable} font-sans antialiased bg-gray-50 text-gray-900`}>
+      <body className={`${inter.variable} font-sans antialiased bg-gray-50 text-gray-900`}>
         <GoogleTagManagerNoScript />
         <AnalyticsClickTracker />
         {children}

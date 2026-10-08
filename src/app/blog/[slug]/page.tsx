@@ -91,7 +91,8 @@ export default async function PostPage({ params }: PageProps) {
               alt={post.coverImageAlt ?? post.title}
               width={1200}
               height={630}
-              priority
+              fetchPriority="high"
+              loading="eager"
             /><figcaption className="blog-image-note">Imagem ilustrativa gerada para este conteúdo.</figcaption></figure>
           )}
           <hr className="post-rule" />
