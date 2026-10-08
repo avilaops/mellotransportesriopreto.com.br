@@ -142,10 +142,22 @@ jobs:
           printf '%s\n' "$SSH_KEY" > "$temporary_ssh/key"
           printf '%s\n' "$KNOWN_HOSTS" > "$temporary_ssh/known_hosts"
           chmod 600 "$temporary_ssh/key" "$temporary_ssh/known_hosts"
-          printf '%s\n' "$GHCR_TOKEN" | ssh -T -i "$temporary_ssh/key" -p "$DEPLOY_PORT" \
-            -o BatchMode=yes -o IdentitiesOnly=yes \
-            -o StrictHostKeyChecking=yes \
-            -o UserKnownHostsFile="$temporary_ssh/known_hosts" \
-            -o ConnectTimeout=20 -o ServerAliveInterval=15 \
-            -o ServerAliveCountMax=3 \
-            "$DEPLOY_USER@$DEPLOY_HOST" "deploy $APPLICATION $IMAGE"
+          # Em 08/10/2026 o primeiro deploy apos o push falhou com "content
+          # digest not found": o GHCR ainda nao servia uma camada da imagem
+          # recem-publicada, e a segunda tentativa passou. O dispatcher so
+          # troca o container depois de baixar a imagem e desfaz sozinho se a
+          # versao nova nao responder, entao repetir e seguro.
+          for attempt in 1 2 3; do
+            if printf '%s\n' "$GHCR_TOKEN" | ssh -T -i "$temporary_ssh/key" -p "$DEPLOY_PORT" \
+              -o BatchMode=yes -o IdentitiesOnly=yes \
+              -o StrictHostKeyChecking=yes \
+              -o UserKnownHostsFile="$temporary_ssh/known_hosts" \
+              -o ConnectTimeout=20 -o ServerAliveInterval=15 \
+              -o ServerAliveCountMax=3 \
+              "$DEPLOY_USER@$DEPLOY_HOST" "deploy $APPLICATION $IMAGE"; then
+              exit 0
+            fi
+            echo "Tentativa $attempt de deploy falhou."
+            [[ $attempt -lt 3 ]] && sleep 30
+          done
+          exit 1
