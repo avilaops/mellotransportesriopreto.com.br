@@ -18,6 +18,13 @@ export const company = {
   rntrc: "",
   cargoInsurance: "",
   foundedYear: "2000",
+  // Início de atividade no CNPJ (Receita Federal).
+  foundingDate: "2000-05-15",
+  // Nota do Perfil da Empresa no Google, lida em 08/10/2026 no perfil que o
+  // Nicolas administra. Não se atualiza sozinha: conferir no perfil antes de
+  // mexer, e apagar os dois valores se não der para manter.
+  googleRating: "4,7",
+  googleReviewCount: 84,
 };
 
 /** Credenciais preenchidas, já com o rótulo que vai para a tela. */
