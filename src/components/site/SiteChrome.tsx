@@ -10,7 +10,7 @@ import { whatsappUrl } from "@/lib/whatsapp";
 import "@/app/mobile.css";
 
 function Logo() {
-  return <Link className="ui-logo" href="/" aria-label="Mello Transportes — início"><Image src="/logo-mello-96.webp" alt="" width={40} height={40} /><span><strong>MELLO <b>TRANSPORTES</b></strong><small>RIO PRETO E REGIÃO</small></span></Link>;
+  return <Link className="ui-logo" href="/" aria-label="Mello Transportes, Rio Preto e região: página inicial"><Image src="/logo-mello-96.webp" alt="" width={40} height={40} /><span><strong>MELLO <b>TRANSPORTES</b></strong><small>RIO PRETO E REGIÃO</small></span></Link>;
 }
 
 export function SiteHeader() {

@@ -288,3 +288,16 @@
 .ui-not-found { padding: 72px 0 56px; max-width: 620px; }
 .ui-not-found h1 { margin: 0 0 12px; }
 .ui-not-found p { margin: 0 0 24px; color: #5b6069; }
+/* Página de cidade atendida. */
+.ui-city-facts { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin: 0 0 24px; }
+.ui-city-facts div { padding: 18px 20px; background: #fff; border: 1px solid var(--ui-line, #e7e7e9); border-radius: 16px; }
+.ui-city-facts dt { font-size: 12px; color: #5b6069; margin-bottom: 4px; }
+.ui-city-facts dd { margin: 0; font-size: 18px; font-weight: 600; color: #191b20; }
+.ui-city-facts dd a { color: inherit; text-decoration: underline; text-decoration-color: #e58a0b; text-underline-offset: 3px; }
+.ui-city-actions { margin: 24px 0 40px; }
+.ui-city-list a { color: inherit; text-decoration: underline; text-decoration-color: #d5d6da; text-underline-offset: 3px; }
+.ui-city-list a:hover { text-decoration-color: #e58a0b; }
+@media (max-width: 760px) {
+  .ui-city-facts { grid-template-columns: 1fr; gap: 10px; }
+  .ui-city-facts dd { font-size: 16px; }
+}
