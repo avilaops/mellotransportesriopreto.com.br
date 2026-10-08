@@ -40,7 +40,7 @@ export function SiteFooter() {
     <Logo /><p>Coletas e entregas em Rio Preto e região.</p>
     <a className="ui-footer-whatsapp" href={whatsappUrl("Olá! Gostaria de falar com a Mello Transportes.")} target="_blank" rel="noopener noreferrer"><MessageCircle size={20} /> Falar no WhatsApp <ArrowUpRight size={18} /></a>
     <div className="ui-footer-links"><Link href="/cotacao">Pedir cotação</Link><Link href="/mercadorias">Preparar a carga</Link><Link href="/cidades">Cidades atendidas</Link></div>
-    <address><a href={company.phoneHref}>{company.phone}</a><a href={`mailto:${company.email}`}>{company.email}</a><span>{company.address}</span>{companyCredentials.length > 0 && <span className="ui-footer-credentials">{companyCredentials.join(" · ")}</span>}</address>
+    <address><a href={company.phoneHref}>{company.phone}</a><a href={`mailto:${company.email}`}>{company.email}</a><span>{company.address}</span><span>{company.openingHours}</span>{companyCredentials.length > 0 && <span className="ui-footer-credentials">{companyCredentials.join(" · ")}</span>}</address>
     <small>© {new Date().getFullYear()} {company.shortName}. Os dados informados são usados para atender sua solicitação.</small>
   </div></footer>;
 }
