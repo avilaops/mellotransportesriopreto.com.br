@@ -14,10 +14,10 @@ export const company = {
   // Credenciais exibidas no rodapé. Só entra o que a Mello confirmar: campo
   // vazio não aparece no site, e número inventado aqui é informação falsa
   // publicada em nome do cliente.
-  cnpj: "",
+  cnpj: "03.824.172/0001-78",
   rntrc: "",
   cargoInsurance: "",
-  foundedYear: "",
+  foundedYear: "2000",
 };
 
 /** Credenciais preenchidas, já com o rótulo que vai para a tela. */
