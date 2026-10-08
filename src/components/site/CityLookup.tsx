@@ -5,6 +5,9 @@ import Link from "next/link";
 import { Search, ArrowUpRight } from "lucide-react";
 import { findServiceArea, suggestServiceAreas } from "@/data/serviceAreas";
 import { routeSlug } from "@/data/publicCatalog";
+
+/** Mesmo endereço para cidade e polo: /cidades/<nome>. */
+const cityHref = (city: string) => `/cidades/${routeSlug(city)}`;
 import { whatsappUrl } from "@/lib/whatsapp";
 
 export function CityLookup() {
@@ -19,7 +22,7 @@ export function CityLookup() {
       <datalist id={`${id}-options`}>{suggestServiceAreas(query).map((area) => <option key={area.city} value={area.city} />)}</datalist>
     </form>
     <div aria-live="polite">
-      {result ? <div className="ui-city-result"><strong>{result.city} é atendida</strong><p>Prazo previsto: {result.deadline.toLowerCase()}. Confirme a programação com a equipe.</p><Link href={`/cidades/${routeSlug(result.hub)}`}>Ver cidades e detalhes deste polo <ArrowUpRight size={16} /></Link><a href={whatsappUrl(`Olá! Gostaria de confirmar uma coleta para ${result.city}.`)} target="_blank" rel="noopener noreferrer">Confirmar pelo WhatsApp</a></div> : submitted && <div className="ui-city-result"><strong>Vamos confirmar essa cidade?</strong><p>A cidade informada não está na relação pública.</p><a href={whatsappUrl(`Olá! Vocês atendem a cidade de ${query.trim()}?`)} target="_blank" rel="noopener noreferrer">Consultar a equipe <ArrowUpRight size={16} /></a></div>}
+      {result ? <div className="ui-city-result"><strong>{result.city} é atendida</strong><p>Prazo previsto: {result.deadline.toLowerCase()}. Confirme a programação com a equipe.</p><Link href={cityHref(result.city)}>Ver prazo e detalhes de {result.city} <ArrowUpRight size={16} /></Link><a href={whatsappUrl(`Olá! Gostaria de confirmar uma coleta para ${result.city}.`)} target="_blank" rel="noopener noreferrer">Confirmar pelo WhatsApp</a></div> : submitted && <div className="ui-city-result"><strong>Vamos confirmar essa cidade?</strong><p>A cidade informada não está na relação pública.</p><a href={whatsappUrl(`Olá! Vocês atendem a cidade de ${query.trim()}?`)} target="_blank" rel="noopener noreferrer">Consultar a equipe <ArrowUpRight size={16} /></a></div>}
     </div>
   </div>;
 }

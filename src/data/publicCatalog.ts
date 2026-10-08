@@ -46,3 +46,21 @@ export const publicHubs = hubs.map((name) => ({
   slug: routeSlug(name),
   areas: serviceAreas.filter((area) => area.hub === name),
 }));
+
+const hubDisplayName = (name: string) => name.replace("São José Do Rio Preto", "São José do Rio Preto");
+const hubSlugs = new Set(publicHubs.map((hub) => hub.slug));
+
+/**
+ * Uma página por cidade atendida, com o prazo, o polo e o veículo da rota.
+ * As cidades que dão nome a um polo ficam de fora: o endereço delas já é a
+ * página do polo.
+ */
+export const publicCities = serviceAreas
+  .map((area) => ({
+    ...area,
+    slug: routeSlug(area.city),
+    hubName: hubDisplayName(area.hub),
+    hubSlug: routeSlug(area.hub),
+    vehicleSlug: publicFleet.find((vehicle) => routeSlug(vehicle.title) === routeSlug(area.vehicle))?.slug,
+  }))
+  .filter((city) => !hubSlugs.has(city.slug));
