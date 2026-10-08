@@ -41,9 +41,28 @@ const legacyRedirects = [
   { source: "/painel/:path*", destination: tmsApiUrl ? `${tmsApiUrl}/login` : "/" },
 ];
 
+/**
+ * Cabeçalhos de segurança de todas as respostas.
+ *
+ * HSTS sem includeSubDomains: o domínio é do cliente e tem outros serviços
+ * (e-mail na Redehost) fora do nosso controle. Sem Content-Security-Policy
+ * por enquanto: o GTM injeta scripts de terceiros que mudam pelo painel dele,
+ * e uma política errada derruba a medição sem aviso.
+ */
+const securityHeaders = [
+  { key: "Strict-Transport-Security", value: "max-age=31536000" },
+  { key: "X-Content-Type-Options", value: "nosniff" },
+  { key: "X-Frame-Options", value: "SAMEORIGIN" },
+  { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
+  { key: "Permissions-Policy", value: "camera=(), microphone=(), geolocation=()" },
+];
+
 const nextConfig: NextConfig = {
   // Gera .next/standalone para rodar em container no Hetzner (node server.js).
   output: "standalone",
+  async headers() {
+    return [{ source: "/:path*", headers: securityHeaders }];
+  },
   async redirects() {
     // 301 e nao 308: as URLs vem de um CMS de 2015 e de ferramentas de SEO
     // antigas, que lidam melhor com o codigo classico.

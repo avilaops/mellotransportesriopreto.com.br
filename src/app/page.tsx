@@ -8,6 +8,7 @@ import { LegacyHashRedirect } from "@/components/site/LegacyHashRedirect";
 import { publicFleet, publicServices } from "@/data/publicCatalog";
 import { totalServiceAreas } from "@/data/serviceAreas";
 import { faqs } from "@/data/faq";
+import { testimonials } from "@/data/testimonials";
 import { company } from "@/config/company";
 import "./landing.css";
 import "./mobile.css";
@@ -19,6 +20,7 @@ export default function HomePage() {
     <section className="ui-section"><div className="ui-section-heading"><h2>Como podemos ajudar</h2></div><div className="ui-card-list">{publicServices.map((item) => <ShortCard key={item.slug} href={`/servicos/${item.slug}`} title={item.title} />)}</div></section>
     <section className="ui-section"><div className="ui-section-heading"><h2>Conheça a frota</h2><Link className="ui-text-link" href="/frota">Ver opções <ArrowUpRight size={16} /></Link></div><div className="ui-fleet-list">{publicFleet.map((item) => <ShortCard key={item.slug} href={`/frota/${item.slug}`} title={item.title} image={item.image} />)}</div></section>
     <section className="ui-section"><div className="ui-section-heading"><h2>Antes de enviar</h2><Link className="ui-text-link" href="/duvidas">Ver dúvidas <ArrowUpRight size={16} /></Link></div><div className="ui-faq">{faqs.slice(0,3).map(([question,answer]) => <details key={question}><summary>{question}</summary><p>{answer}</p></details>)}</div></section>
+    {testimonials.length > 0 && <section className="ui-section"><div className="ui-section-heading"><h2>Quem envia com a Mello</h2></div><div className="ui-testimonials">{testimonials.map((item) => <figure key={item.name + item.quote}><blockquote>{item.quote}</blockquote><figcaption><strong>{item.name}</strong>{item.company && <span>{item.company}</span>}</figcaption></figure>)}</div></section>}
     <ContactCTA />
-  </main><SiteFooter /><script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({ "@context": "https://schema.org", "@type": "LocalBusiness", name: company.name, url: company.pagesUrl, telephone: company.phone, email: company.email, address: company.address, areaServed: company.serviceRegion, makesOffer: publicServices.map((service) => ({ "@type": "Offer", itemOffered: { "@type": "Service", name: service.title, description: service.description, url: `${company.pagesUrl}servicos/${service.slug}` } })) }) }} /></div>;
+  </main><SiteFooter /><script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({ "@context": "https://schema.org", "@type": "LocalBusiness", name: company.name, url: company.pagesUrl, telephone: company.phone, email: company.email, address: company.address, ...(company.cnpj ? { taxID: company.cnpj } : {}), areaServed: company.serviceRegion, makesOffer: publicServices.map((service) => ({ "@type": "Offer", itemOffered: { "@type": "Service", name: service.title, description: service.description, url: `${company.pagesUrl}servicos/${service.slug}` } })) }) }} /></div>;
 }

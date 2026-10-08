@@ -28,6 +28,18 @@ function update<K extends keyof CollectionDraft>(draft: CollectionDraft, key: K,
   return { ...draft, [key]: value };
 }
 
+/**
+ * Peso que vai para o sistema: o total digitado, senão a soma dos volumes.
+ * Sem nenhum dos dois vai 1, porque o sistema recusa o pedido sem peso e a
+ * mensagem do WhatsApp já leva o que o cliente escreveu.
+ */
+function leadWeight(typed: string, summed: number) {
+  const fromText = Number.parseFloat(typed.replace(/\./g, "").replace(",", ".").replace(/[^0-9.]/g, ""));
+  if (Number.isFinite(fromText) && fromText > 0) return String(fromText);
+  if (Number.isFinite(summed) && summed > 0) return String(summed);
+  return "1";
+}
+
 async function fetchCep(zip: string) {
   const digits = zip.replace(/\D/g, "");
   if (digits.length !== 8) return null;
@@ -94,12 +106,14 @@ export function CollectionCenter() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           companyName: draft.requesterName,
-          email: draft.requesterName + "@mello.example.com", // Fallback if no email
+          // O sistema exige e-mail; quem não informou segue com um endereço
+          // reservado (.example), que não pertence a ninguém.
+          email: draft.email.trim() || "sem-email@mello.example.com",
           phone: draft.requesterPhone,
           origin: draft.originCity,
           destination: draft.destinationCity,
           volumes: draft.totalVolumes || "1",
-          weight: "100", // Fallback
+          weight: leadWeight(draft.totalWeight, totals.weight),
           message: built.message
         })
       });

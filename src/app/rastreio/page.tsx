@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Search, MapPin, Truck, CheckCircle2, Box, ArrowRight, Loader2 } from "lucide-react";
 import { motion } from "framer-motion";
 import { takeTrackingCodeDigits } from "@/lib/tracking";
+import { whatsappUrl } from "@/lib/whatsapp";
 
 /** O que a rota publica devolve. Nada alem disto sai do servidor. */
 type MinutaPublica = {
@@ -22,6 +23,7 @@ export default function RastreioPage() {
   const [isSearching, setIsSearching] = useState(false);
   const [resultados, setResultados] = useState<MinutaPublica[] | null>(null);
   const [erro, setErro] = useState<string | null>(null);
+  const [indisponivel, setIndisponivel] = useState(false);
 
   const handleSearch = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -29,6 +31,7 @@ export default function RastreioPage() {
 
     setIsSearching(true);
     setErro(null);
+    setIndisponivel(false);
     try {
       const params = new URLSearchParams({ cnpj: doc, codigo });
       const res = await fetch(`/api/rastreio?${params}`);
@@ -39,12 +42,18 @@ export default function RastreioPage() {
         // e sobre o volume de tentativas, nao sobre o que existe no banco.
         setResultados(null);
         setErro("Muitas consultas seguidas. Aguarde alguns minutos e tente de novo.");
+      } else if (res.status >= 500) {
+        // Falha nossa, não ausência de carga: dizer "não localizada" aqui faria
+        // o cliente achar que o código está errado.
+        setResultados(null);
+        setIndisponivel(true);
       } else {
         setResultados([]);
       }
     } catch (error) {
       console.error("Erro na busca", error);
-      setResultados([]);
+      setResultados(null);
+      setIndisponivel(true);
     } finally {
       setIsSearching(false);
     }
@@ -113,6 +122,21 @@ export default function RastreioPage() {
           </button>
         </form>
       </div>
+
+      {indisponivel && (
+        <div role="alert" className="w-full max-w-2xl mb-6 p-5 rounded-2xl bg-amber-50 border border-amber-200 text-amber-900 text-sm text-center">
+          <p className="font-semibold mb-1">A consulta está indisponível no momento.</p>
+          <p className="mb-3">Isso não quer dizer que a carga não existe. A equipe informa o andamento pelo WhatsApp.</p>
+          <a
+            href={whatsappUrl(`Olá! Gostaria de saber o andamento da carga com código de rastreio ${codigo}.`)}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-block bg-[#f28a00] text-gray-950 font-bold px-5 py-3 rounded-xl hover:bg-orange-700 transition"
+          >
+            Consultar pelo WhatsApp
+          </a>
+        </div>
+      )}
 
       {erro && (
         <div className="w-full max-w-2xl mb-6 p-4 rounded-2xl bg-amber-50 border border-amber-200 text-amber-800 text-sm text-center">
