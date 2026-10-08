@@ -93,7 +93,7 @@ export default async function PostPage({ params }: PageProps) {
               height={630}
               fetchPriority="high"
               loading="eager"
-            /><figcaption className="blog-image-note">Imagem ilustrativa gerada para este conteúdo.</figcaption></figure>
+            /></figure>
           )}
           <hr className="post-rule" />
           <PostBody blocks={post.body} />

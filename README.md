@@ -108,7 +108,7 @@ Decisões do Nicolas em 08/10/2026 que valem para o conteúdo:
 - A Mello **não faz motofrete nem malote**. O CNAE, o site antigo e avaliações antigas citam esses serviços; são histórico, não oferta.
 - A nota do Google (`googleRating`, `googleReviewCount`) é fixa no código: confira no perfil antes de alterar.
 
-As fotos de frota são ilustrações geradas por IA, identificadas como tal na legenda. Trocar por fotos reais quando a Mello enviar.
+As fotos de frota são ilustrações geradas por IA. O Nicolas mandou tirar do site os avisos de "imagem ilustrativa" em 08/10/2026; não recolocar. Trocar por fotos reais quando a Mello enviar.
 
 A lista de cidades também existe no TMS (mapa do motorista). Ao mudar aqui, mude lá.
 

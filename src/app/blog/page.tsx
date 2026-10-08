@@ -47,7 +47,6 @@ export default function BlogIndexPage() {
           </p>
         </section>
 
-        <p className="blog-image-note">Imagens ilustrativas geradas para os conteúdos.</p>
         <div className="post-grid">
           {sortedPosts.map((post) => (
             <article className="post-card" key={post.slug}>
