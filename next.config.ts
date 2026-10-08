@@ -32,6 +32,9 @@ const legacyRedirects = [
   { source: "/entregas-express", destination: "/servicos" },
   // Paginas de servico do CMS antigo: /13/servico/motofrete e afins.
   { source: "/:id/servico/:slug", destination: "/servicos" },
+  // Nomes de frota corrigidos em 08/10/2026: os enderecos antigos seguem valendo.
+  { source: "/frota/fiat-strada", destination: "/frota/frota-leve" },
+  { source: "/frota/vuc-bau", destination: "/frota/caminhao-3-4-vuc" },
   // Painel administrativo do CMS antigo, que deixa de existir na migracao.
   // O login agora mora no TMS; sem o endereco configurado, cai na home.
   { source: "/painel", destination: tmsApiUrl ? `${tmsApiUrl}/login` : "/" },
