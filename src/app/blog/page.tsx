@@ -19,6 +19,7 @@ export const metadata: Metadata = {
     title: "Blog | Mello Transportes",
     description:
       "Conteúdo prático sobre frete, coleta, prazo e documentação de carga.",
+    images: [{ url: "/preview-whatsapp-v2.png", width: 1200, height: 630, alt: "Mello Transportes" }],
   },
 };
 
