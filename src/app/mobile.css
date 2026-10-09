@@ -320,3 +320,10 @@
   .ui-collection .summary-sticky .collection-disclosure:first-child { border-top: 0; }
   .ui-collection .ui-mode-select { max-width: 420px; }
 }
+/* Texto corrido e lista de destinos da página de cidade. */
+.ui-city-copy > p { max-width: 720px; line-height: 1.7; color: #4b4f58; margin: 0 0 16px; }
+.ui-city-destinations { margin: 0 0 18px; }
+.ui-city-destinations h3 { font-size: 15px; margin: 0 0 6px; color: #191b20; }
+.ui-city-destinations p { font-size: 14px; line-height: 1.8; color: #5b6069; margin: 0; }
+.ui-city-destinations a { color: inherit; text-decoration: underline; text-decoration-color: #d5d6da; text-underline-offset: 3px; }
+.ui-city-destinations a:hover { text-decoration-color: #e58a0b; }

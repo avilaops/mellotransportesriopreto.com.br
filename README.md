@@ -15,7 +15,7 @@ Este repositório nasceu em 06/10/2026 da separação do `avilaops/TMS` (antigo 
 | `/servicos`, `/servicos/<servico>` | Os quatro serviços e o detalhe de cada um |
 | `/frota`, `/frota/<veiculo>` | Frota Leve, van de carga e Caminhão 3/4 (VUC) |
 | `/cidades` | Busca de cidade, polos e mapa |
-| `/cidades/<nome>` | Página do polo (nove) ou da cidade atendida (129), no mesmo endereço |
+| `/cidades/<nome>` | Uma página para cada uma das 138 cidades. Responde às buscas "carga rápida para <cidade>", "Rio Preto a <cidade>" e "transporte de <cidade> para <outra>" (lista de destinos na própria página, não uma página por par). A cidade que dá nome a um polo mostra também as cidades do polo |
 | `/coleta` | Central de coleta: monta o pedido e envia pelo WhatsApp |
 | `/cotacao` | Formulário de cotação |
 | `/rastreio` | Consulta pública de carga por CNPJ/CPF + código de rastreio |

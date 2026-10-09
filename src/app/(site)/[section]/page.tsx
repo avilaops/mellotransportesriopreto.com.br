@@ -14,7 +14,7 @@ import { publicMetadata } from "@/lib/publicMetadata";
 const sections: Record<string, { title: string; description: string }> = {
   servicos: { title: "Serviços de transporte", description: "Coletas, entregas e distribuição regional. Escolha um serviço para conhecer os detalhes e organizar seu envio." },
   frota: { title: "O veículo certo para sua carga", description: "Frota Leve, van de carga e Caminhão 3/4 (VUC). Conheça cada opção e confirme a disponibilidade com a equipe." },
-  cidades: { title: "Onde a Mello atende", description: `Consulte seu destino entre ${totalServiceAreas} cidades de Rio Preto e região, com o prazo previsto e o polo de atendimento de cada uma.` },
+  cidades: { title: "Carga rápida de Rio Preto para a região", description: `Transporte de carga de São José do Rio Preto para ${totalServiceAreas} cidades do interior de São Paulo. Consulte seu destino, o prazo previsto e o polo de atendimento.` },
   mercadorias: { title: "Prepare sua mercadoria", description: "Uma carga bem embalada e identificada ajuda a coleta e a entrega a acontecerem com tranquilidade." },
   duvidas: { title: "Como podemos ajudar?", description: "Encontre respostas sobre coleta, prazos e documentos antes de organizar seu envio." },
   marca: { title: "Marca e materiais", description: "Logo, cores e orientações para usar a identidade da Mello Transportes." },

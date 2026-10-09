@@ -52,15 +52,17 @@ const hubSlugs = new Set(publicHubs.map((hub) => hub.slug));
 
 /**
  * Uma página por cidade atendida, com o prazo, o polo e o veículo da rota.
- * As cidades que dão nome a um polo ficam de fora: o endereço delas já é a
- * página do polo.
+ * `isHub` marca a cidade que dá nome a um polo: a página dela mostra também
+ * as cidades do polo.
  */
-export const publicCities = serviceAreas
-  .map((area) => ({
+export const publicCities = serviceAreas.map((area) => {
+  const slug = routeSlug(area.city);
+  return {
     ...area,
-    slug: routeSlug(area.city),
+    slug,
+    isHub: hubSlugs.has(slug),
     hubName: hubDisplayName(area.hub),
     hubSlug: routeSlug(area.hub),
     vehicleSlug: publicFleet.find((vehicle) => routeSlug(vehicle.title) === routeSlug(area.vehicle))?.slug,
-  }))
-  .filter((city) => !hubSlugs.has(city.slug));
+  };
+});
