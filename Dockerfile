@@ -1,5 +1,6 @@
 # Site da Mello Transportes: Next 16 (standalone), sem banco.
 # A imagem de producao e construida e publicada no GHCR pelo GitHub Actions.
+ARG TMS_API_URL=https://tms.avilaops.com
 FROM node:22-alpine AS base
 RUN apk add --no-cache libc6-compat
 
@@ -12,7 +13,7 @@ FROM base AS builder
 WORKDIR /app
 ENV NEXT_TELEMETRY_DISABLED=1
 # As rotas /api/* sao reescritas para o TMS no build: o endereco entra aqui.
-ARG TMS_API_URL=https://tms.avilaops.com
+ARG TMS_API_URL
 ENV TMS_API_URL=${TMS_API_URL}
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
@@ -20,8 +21,10 @@ RUN npm run build
 
 FROM base AS runner
 WORKDIR /app
+ARG TMS_API_URL
 ENV NODE_ENV=production \
     NEXT_TELEMETRY_DISABLED=1 \
+    TMS_API_URL=${TMS_API_URL} \
     PORT=3000 \
     HOSTNAME=0.0.0.0
 RUN addgroup -S nodejs && adduser -S nextjs -G nodejs
