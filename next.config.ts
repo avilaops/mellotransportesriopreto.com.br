@@ -6,11 +6,12 @@ import type { NextConfig } from "next";
  * O site nao tem banco: cotacao, lead e consulta de rastreio sao atendidos pelo
  * TMS. O navegador continua chamando /api/... neste mesmo dominio e o servidor
  * do site repassa, entao nao ha CORS nem endereco do sistema exposto na pagina.
+ * A cotacao passa por uma Route Handler propria, que fixa o tenant Mello.
  */
 const tmsApiUrl = process.env.TMS_API_URL?.replace(/\/+$/, "") ?? "";
 
-/** As unicas rotas do TMS que o site publico usa. Nada alem disto e repassado. */
-const tmsPublicRoutes = ["/api/cotacoes", "/api/leads", "/api/rastreio"];
+/** Rotas publicas que podem usar rewrite direto; cotacao exige o proxy com tenant fixo. */
+const tmsPublicRoutes = ["/api/leads", "/api/rastreio"];
 
 /**
  * Redirecionamentos do site antigo (Redehost, PHP) para o site novo.

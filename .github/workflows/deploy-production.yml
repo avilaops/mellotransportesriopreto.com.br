@@ -11,9 +11,9 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.event_name == 'pull_request' && github.ref || github.run_id }}
   cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 jobs:
-  # O site nao tem banco nem teste automatizado: o que protege a main e o
-  # typecheck e o lint aqui e o build dentro da imagem, que tambem pre-renderiza todas
-  # as materias do blog.
+  # Os testes automatizados protegem os contratos das rotas; o typecheck, o lint
+  # e o build da imagem validam o restante da aplicacao e pre-renderizam as
+  # materias do blog.
   checks:
     runs-on: ubuntu-latest
     timeout-minutes: 15
@@ -24,6 +24,7 @@ jobs:
           node-version: 22
           cache: npm
       - run: npm ci
+      - run: npm test
       - run: npm run typecheck
       - run: npm run lint
 

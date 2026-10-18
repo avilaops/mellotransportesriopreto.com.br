@@ -29,15 +29,15 @@ O site não tem banco, login nem dado de cliente. Tudo que precisa de banco é a
 
 ## Como o site fala com o TMS
 
-O navegador chama três rotas neste mesmo domínio, e o servidor do site repassa cada uma para o TMS (rewrite em [next.config.ts](next.config.ts)):
+O navegador chama três rotas neste mesmo domínio, e o servidor do site repassa cada uma para o TMS:
 
 | Rota | Quem chama | O que o TMS faz |
 | --- | --- | --- |
-| `POST /api/cotacoes` | `/cotacao` | Registra a cotação |
+| `POST /api/cotacoes` | `/cotacao` | A Route Handler do site força o tenant `mello` e registra a cotação |
 | `POST /api/leads` | Central de coleta (`/coleta`) | Registra o lead no CRM |
 | `GET /api/rastreio` | `/rastreio` | Consulta a carga |
 
-O endereço do TMS vem de `TMS_API_URL` e é lido **no build**. Em produção é `https://tms.avilaops.com`, que já é o padrão do [Dockerfile](Dockerfile). Sem a variável, o site abre normalmente, mas esses três envios respondem 404; o WhatsApp continua funcionando, porque não depende da API.
+O endereço do TMS vem de `TMS_API_URL`. Lead e rastreio usam os rewrites de [next.config.ts](next.config.ts); a cotação usa [src/app/api/cotacoes/route.ts](src/app/api/cotacoes/route.ts), que substitui qualquer empresa recebida por `mello` antes de encaminhar. Em produção o endereço é `https://tms.avilaops.com`, já definido no [Dockerfile](Dockerfile). Sem a variável, o site abre normalmente; a cotação responde 503 e oferece o WhatsApp, enquanto os dois rewrites não são criados.
 
 Quando o TMS não responde (erro 5xx ou sem conexão), a cotação e o rastreio mostram um aviso com o pedido já montado para seguir pelo WhatsApp. A coleta abre o WhatsApp de qualquer jeito.
 
