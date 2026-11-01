@@ -57,10 +57,11 @@ export const metadata: Metadata = {
       "Coletas e entregas em Rio Preto e região, com atendimento próximo e rotas planejadas para sua empresa.",
     images: [
       {
-        url: "/preview-whatsapp-v2.png",
+        url: "/preview-whatsapp-v3.jpg",
         width: 1200,
         height: 630,
-        alt: "Mello Transportes | transporte regional em São Paulo",
+        alt: "Sua entrega começa com uma boa coleta. Mello Transportes, Rio Preto e região. WhatsApp (17) 99714-9702.",
+        type: "image/jpeg",
       },
     ],
   },
@@ -69,7 +70,7 @@ export const metadata: Metadata = {
     title: "Mello Transportes | Rio Preto e região",
     description:
       "Coletas e entregas em Rio Preto e região, com atendimento próximo e rotas planejadas para sua empresa.",
-    images: ["/preview-whatsapp-v2.png"],
+    images: ["/preview-whatsapp-v3.jpg"],
   },
 };
 
