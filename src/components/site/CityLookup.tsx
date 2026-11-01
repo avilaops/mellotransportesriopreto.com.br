@@ -10,15 +10,15 @@ import { routeSlug } from "@/data/publicCatalog";
 const cityHref = (city: string) => `/cidades/${routeSlug(city)}`;
 import { whatsappUrl } from "@/lib/whatsapp";
 
-export function CityLookup() {
+export function CityLookup({ prominent = false }: { prominent?: boolean }) {
   const id = useId();
   const [query, setQuery] = useState("");
   const [submitted, setSubmitted] = useState(false);
   const result = findServiceArea(query);
-  return <div className="ui-city-lookup">
+  return <div className={prominent ? "ui-city-lookup home-city-lookup" : "ui-city-lookup"}>
     <form onSubmit={(event) => { event.preventDefault(); setSubmitted(true); }}>
       <label htmlFor={id}>Qual é a cidade de destino?</label>
-      <div className="ui-search-field"><Search size={20} aria-hidden="true" /><input id={id} value={query} onChange={(event) => { setQuery(event.target.value); setSubmitted(false); }} list={`${id}-options`} placeholder="Ex.: Mirassol" autoComplete="off" required /><button type="submit" aria-label="Consultar cidade"><ArrowUpRight size={22} /></button></div>
+      <div className="ui-search-field"><Search size={20} aria-hidden="true" /><input id={id} value={query} onChange={(event) => { setQuery(event.target.value); setSubmitted(false); }} list={`${id}-options`} placeholder={prominent ? "Digite o nome da sua cidade" : "Ex.: Mirassol"} autoComplete="off" required /><button type="submit" aria-label="Consultar cidade">{prominent ? <>Buscar <ArrowUpRight size={18} /></> : <ArrowUpRight size={22} />}</button></div>
       <datalist id={`${id}-options`}>{suggestServiceAreas(query).map((area) => <option key={area.city} value={area.city} />)}</datalist>
     </form>
     <div aria-live="polite">

@@ -13,11 +13,11 @@ function Logo() {
   return <Link className="ui-logo" href="/" aria-label="Mello Transportes, Rio Preto e região: página inicial"><Image src="/logo-mello-96.webp" alt="" width={40} height={40} /><span><strong>MELLO <b>TRANSPORTES</b></strong><small>RIO PRETO E REGIÃO</small></span></Link>;
 }
 
-export function SiteHeader() {
+export function SiteHeader({ featured = false }: { featured?: boolean }) {
   const [open, setOpen] = useState(false);
   const toggle = useRef<HTMLButtonElement>(null);
   const pathname = usePathname();
-  const links = [["/servicos", "Serviços"], ["/cidades", "Cidades"], ["/frota", "Frota"], ["/rastreio", "Rastreio"], ["/blog", "Blog"], ["/duvidas", "Dúvidas"]];
+  const links = featured ? [["/servicos", "Serviços"], ["/cidades", "Regiões"], ["/rastreio", "Rastreio"]] : [["/servicos", "Serviços"], ["/cidades", "Cidades"], ["/frota", "Frota"], ["/rastreio", "Rastreio"], ["/blog", "Blog"], ["/duvidas", "Dúvidas"]];
   useEffect(() => {
     if (!open) return;
     const close = (event: KeyboardEvent) => { if (event.key === "Escape") { setOpen(false); toggle.current?.focus(); } };
@@ -30,7 +30,7 @@ export function SiteHeader() {
     <button ref={toggle} className="ui-menu-toggle" aria-label={open ? "Fechar menu" : "Abrir menu"} aria-expanded={open} aria-controls="public-navigation" onClick={() => setOpen(!open)}>{open ? <X size={23} /> : <Menu size={23} />}</button>
     <nav id="public-navigation" className={open ? "ui-navigation is-open" : "ui-navigation"} aria-label="Navegação principal">
       {links.map(([href, title]) => <Link key={href} href={href} aria-current={pathname === href ? "page" : undefined} onClick={() => setOpen(false)}>{title}</Link>)}
-      <Link className="ui-button" href="/coleta" onClick={() => setOpen(false)}>Solicitar coleta <ArrowUpRight size={16} /></Link>
+      {featured ? <a className="home-header-contact" href={whatsappUrl("Olá! Gostaria de solicitar uma coleta.")} target="_blank" rel="noopener noreferrer"><MessageCircle size={22} /><span>{company.whatsapp}</span><ArrowUpRight size={17} /></a> : <Link className="ui-button" href="/coleta" onClick={() => setOpen(false)}>Solicitar coleta <ArrowUpRight size={16} /></Link>}
     </nav>
   </header>;
 }
