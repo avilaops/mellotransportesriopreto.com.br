@@ -1,0 +1,11 @@
+/empresa /#inicio 301
+/nossa-frota /frota/ 301
+/cidades-atendidas /cidades/ 301
+/faca-um-orcamento /cotacao/ 301
+/contato /coleta/ 301
+/entregas-express /servicos/ 301
+/:id/servico/:slug /servicos/ 301
+/frota/fiat-strada /frota/frota-leve/ 301
+/frota/vuc-bau /frota/caminhao-3-4-vuc/ 301
+/painel https://tms.avilaops.com/login 301
+/painel/* https://tms.avilaops.com/login 301

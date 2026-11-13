@@ -1,10 +1,10 @@
 const TENANT_MELLO = "mello";
 const STATUS_SEM_CORPO = new Set([204, 205, 304]);
 
-const erroJson = (status: number, error: string) => Response.json({ error }, { status });
+const erroJson = (status, error) => Response.json({ error }, { status });
 
-function endpointDoTms(): URL | null {
-  const configurada = process.env.TMS_API_URL?.trim();
+function endpointDoTms(env) {
+  const configurada = env.TMS_API_URL?.trim();
   if (!configurada) return null;
 
   try {
@@ -17,13 +17,13 @@ function endpointDoTms(): URL | null {
   }
 }
 
-function primeiroIp(req: Request): string | null {
+function primeiroIp(req) {
   const primeiro = req.headers.get("x-forwarded-for")?.split(",", 1)[0].trim();
   return primeiro || null;
 }
 
-export async function POST(req: Request): Promise<Response> {
-  const endpoint = endpointDoTms();
+async function POST(req, env) {
+  const endpoint = endpointDoTms(env);
   if (!endpoint) return erroJson(503, "Serviço de cotações indisponível.");
 
   const recebido = await req.json().catch(() => null);
@@ -55,3 +55,15 @@ export async function POST(req: Request): Promise<Response> {
     return erroJson(502, "Não foi possível registrar a cotação.");
   }
 }
+
+export default { async fetch(request, env) {
+ const url = new URL(request.url);
+ if (url.hostname.startsWith('www.')) { url.hostname = 'mellotransportesriopreto.com.br'; return Response.redirect(url, 301); }
+ if (url.pathname === '/api/cotacoes') return request.method === 'POST' ? POST(request, env) : new Response(null,{status:405});
+ if (['/api/leads','/api/rastreio'].includes(url.pathname)) {
+  if (!env.TMS_API_URL) return Response.json({error:'Serviço indisponível.'},{status:503});
+  const target = new URL(url.pathname + url.search, env.TMS_API_URL);
+  try { return await fetch(new Request(target,request),{redirect:'manual'}); } catch { return Response.json({error:'Serviço temporariamente indisponível.'},{status:502}); }
+ }
+ return env.ASSETS.fetch(request);
+}};

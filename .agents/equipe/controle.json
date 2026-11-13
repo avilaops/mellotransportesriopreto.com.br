@@ -3,6 +3,12 @@
   "application": "avila-mellotransportesriopreto-com-br",
   "members": [],
   "tasks": [],
-  "decisions": [],
+  "decisions": [
+    {
+      "id": "D-CLOUDFLARE-PAGES-20261113",
+      "decision": "Site estático no Pages; funções /api preservam proxy para TMS_API_URL com tenant mello fixo nas cotações.",
+      "evidence": "Build estático e domínio HTTPS validados em 13/11/2026; o TMS é uma aplicação externa."
+    }
+  ],
   "integrations": []
 }

@@ -21,3 +21,7 @@ output/
 tmp/
 *.log
 .DS_Store
+
+dist/
+pages-dist/
+.wrangler/

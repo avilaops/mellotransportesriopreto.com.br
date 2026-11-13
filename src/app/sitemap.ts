@@ -1,3 +1,4 @@
+export const dynamic = "force-static";
 import type { MetadataRoute } from "next";
 import { publicServices, publicFleet, publicCities } from "@/data/publicCatalog";
 import { sortedPosts } from "@/content/blog";
