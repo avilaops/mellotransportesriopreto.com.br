@@ -69,7 +69,7 @@ export function installMeasurement(config, options = {}) {
     if (!consent) return;
     const ctx = context();
     if (!ctx) { lastView = null; return; }
-    const key = ctx.container_id + ':' + location.origin + location.pathname + (Array.isArray(site.hashRoutes) ? location.hash : '');
+    const key = ctx.container_id + ':' + location.origin + location.pathname + (Array.isArray(site.hashRoutes) ? new URL(ctx.page_location).hash : '');
     if (key === lastView) return;
     lastView = key;
     loadContainer(ctx.container_id);
@@ -162,6 +162,12 @@ export function installMeasurement(config, options = {}) {
   try { stored = JSON.parse(localStorage.getItem(adapter === 'loja' ? 'loja_consentimento' : 'avila_consentimento')); } catch { /* no usable decision */ }
   if (['loja', 'avila'].includes(adapter) && stored?.versao === 1) setConsent(permitsMeasurement(stored.escolha));
   if (adapter === 'avila' && options.banner === true) {
+    window.addEventListener('storage', event => {
+      if (event.storageArea !== localStorage || event.key !== null && event.key !== 'avila_consentimento') return;
+      let choice;
+      try { choice = JSON.parse(event.newValue); } catch { /* missing or invalid means denied */ }
+      setConsent(choice?.versao === 1 && permitsMeasurement(choice.escolha));
+    });
     document.querySelectorAll('[data-avila-consent], [data-avila-preferences]').forEach(element => element.remove());
     const preferences = document.createElement('button');
     preferences.type = 'button';
