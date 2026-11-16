@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "application": "avila-mellotransportesriopreto-com-br",
-  "members": [],
-  "tasks": [],
+  "members": [{ "id": "nicolas-avila", "name": "Nicolas Rosa Avila Barros", "role": "Proprietário" }],
+  "tasks": [{ "id": "T-MEDICAO-33-20261116", "title": "Medição institucional consentida", "owner": "nicolas-avila", "status": "em-revisao", "acceptance": ["GA4 próprio somente após permissão", "Preferências reabríveis e revogáveis", "Rotas públicas do build sem campos pessoais"], "evidence": ["Build Next e TypeScript aprovados; 162 rotas", "Teste Node da ponte de cotação aprovado", "Chromium com artefato local e SDK real aprovado; coletores locais204, sem ingestão", "Vitest antigo falha por importar src/app/api/cotacoes/route removida antes deste lote; publicação pendente"] }],
   "decisions": [
     {
       "id": "D-CLOUDFLARE-PAGES-20261113",
