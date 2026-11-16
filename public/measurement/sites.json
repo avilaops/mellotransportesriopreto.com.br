@@ -1,0 +1,40 @@
+{
+  "operations": {
+    "institutional": {
+      "name": "Avila • Institucionais",
+      "id": "GTM-MMTBHNRN"
+    },
+    "ecommerce": {
+      "name": "Avila • E-commerce",
+      "id": "GTM-M6JQNNMS"
+    },
+    "platform": {
+      "name": "Avila • Plataforma de e-commerce",
+      "id": "GTM-KLP5RSCZ"
+    },
+    "saas": {
+      "name": "Avila • SaaS",
+      "id": "GTM-NQSKDVVG"
+    }
+  },
+  "sites": [
+    {
+      "category": "institucional",
+      "status": "Não informado",
+      "domain": "mellotransportesriopreto.com.br",
+      "gatewayPath": "/avmetrics/",
+      "operation": "institutional",
+      "aliases": [
+        "www.mellotransportesriopreto.com.br"
+      ],
+      "applicationPrefixes": [],
+      "publicPrefixes": [],
+      "routeStatus": "pending-inventory",
+      "measurementId": "G-HKPYTDTX0L",
+      "property": "properties/564370432",
+      "stream": "properties/564370432/dataStreams/16344179930",
+      "publicPaths": [],
+      "consentAdapter": "avila"
+    }
+  ]
+}

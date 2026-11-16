@@ -1,51 +1,8 @@
 import Script from "next/script";
 
-/**
- * Google Tag Manager — container GTM-TWJR2PM5, criado pelo TagFlow.
- *
- * O container já publica a configuração do GA4 (G-PXSGBEZ9TJ). Meta Pixel,
- * conversões de Ads e eventos novos entram por lá, sem novo deploy do site.
- *
- * O ID vem embutido como padrão de propósito: ele é público — vai no HTML de
- * qualquer jeito — e quando o valor mora só num `.env` fora do versionamento
- * ele se perde em migração de pasta ou build feito em outra máquina, e o site
- * fica sem medição sem ninguém notar. `NEXT_PUBLIC_GTM_ID` continua
- * sobrepondo, para builds de staging.
- *
- * `lazyOnload`: o GTM e o GA4 somam cerca de 280 KB e quase 1 s de
- * processamento no celular. Carregando depois que a página termina, o
- * visitante vê e usa o site antes; a medição continua, só começa um pouco
- * mais tarde. Quem sai em menos de dois ou três segundos pode não ser contado.
- */
-const GTM_ID = process.env.NEXT_PUBLIC_GTM_ID ?? "GTM-TWJR2PM5";
-
+/** Analytics starts only after the visitor grants permission. */
 export function GoogleTagManagerScript() {
-  if (!GTM_ID) return null;
-
-  return (
-    <Script id="gtm" strategy="lazyOnload">
-      {`(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer','${GTM_ID}');`}
-    </Script>
-  );
+  return <Script type="module" src="/measurement/site.mjs" strategy="afterInteractive" />;
 }
 
-/** Fallback do GTM para navegação sem JavaScript. Vai logo após `<body>`. */
-export function GoogleTagManagerNoScript() {
-  if (!GTM_ID) return null;
-
-  return (
-    <noscript>
-      <iframe
-        src={`https://www.googletagmanager.com/ns.html?id=${GTM_ID}`}
-        height="0"
-        width="0"
-        style={{ display: "none", visibility: "hidden" }}
-        title="Google Tag Manager"
-      />
-    </noscript>
-  );
-}
+export function GoogleTagManagerNoScript() { return null; }

@@ -25,6 +25,7 @@ jobs:
         working-directory: .
         run: |
           npm ci
+          node --test scripts/measurement.check.mjs
           npm run build
           node cloudflare/prepare-pages.mjs
       - name: Check out text publisher
